@@ -2,7 +2,7 @@
 <?php
 require_once('User.php');
 require "connection.php";
-    $jsonArray;
+require "Db.php";
     $data=$_POST;
     if(isset($data['do_signup']))                   //если была нажа кнопка регистрации
     {
@@ -29,8 +29,8 @@ require "connection.php";
         {
             $errors[]='Повторный пароль введён неверно!';
         }
-        $json = file_get_contents('db.json');
-        $jsonArray = json_decode($json, true);  //старые значения
+        $db=new Db();
+        $jsonArray=$db->read();
         if((count($jsonArray))>0 ){
             foreach ($jsonArray as $item) {
                 if ($data['login'] === $item['login'] ) {          //проверка на повторный логин
@@ -45,12 +45,11 @@ require "connection.php";
         if(empty($errors)){             //ошибок нет, значит регестрируем
             $encryptedPassword = md5($data['password'] . 'solid');
             $user = new User($data['login'], $data['name'], $data['email'], $encryptedPassword);
-            $json = file_get_contents('db.json');
-            $jsonArray = json_decode($json, true);  //старые значения
-            $jsonArray[] = $user->getData();        //вносим в массив новые значения
-
-            file_put_contents('db.json', json_encode($jsonArray));  //ложим и старые и новые
-            echo '<div style="color:green;">Вы успешно зарегестрированы!</div><hr>';
+//            $json = file_get_contents('db.json');
+//            $jsonArray = json_decode($json, true);  //старые значения
+            $db->update($user);
+            //file_put_contents('db.json', json_encode($jsonArray));  //ложим и старые и новые
+            echo '<div style="color:green;">Вы успешно зарегестрированы!<a href="/"><button>Переход на главную</button></a>';
         }else{
             echo '<div style="color:red;">'.array_shift($errors).'</div><hr>';
         }

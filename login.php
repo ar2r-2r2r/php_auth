@@ -1,13 +1,16 @@
 <?php
     require_once('User.php');
     require "connection.php";
+    require "Db.php";
     $data=$_POST;
 
     if(isset($data['do_login']))                   //если была нажа кнопка войти
     {
         $errors=array();
-        $json = file_get_contents('db.json');
-        $jsonArray = json_decode($json, true);  //старые значения
+//        $json = file_get_contents('db.json');
+//        $jsonArray = json_decode($json, true);  //старые значения
+        $db=new Db();
+        $jsonArray=$db->read();
         if(count($jsonArray)>0 ){
             foreach ($jsonArray as $item) {
                 if ($data['login'] === $item['login'] ) {          //проверка на совпадающий логин
