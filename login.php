@@ -1,49 +1,22 @@
-<?php
-    require_once('User.php');
-    require "connection.php";
-    require "Db.php";
-    $data=$_POST;
-
-    if(isset($data['do_login']))                   //если была нажа кнопка войти
-    {
-        $errors=array();
-//        $json = file_get_contents('db.json');
-//        $jsonArray = json_decode($json, true);  //старые значения
-        $db=new Db();
-        $jsonArray=$db->read();
-        if(count($jsonArray)>0 ){
-            foreach ($jsonArray as $item) {
-                if ($data['login'] === $item['login'] ) {          //проверка на совпадающий логин
-                    if ($item['password'] === md5($data['password'] . 'solid') ) {          //проверка на совпадающий пароль
-                        $_SESSION['logged_user']=$data['login'];
-                        $islogin=true;
-                        setcookie('logged_user',$data['login'], time() + 36000);
-                    }
-                }
-            }
-        }
-        if ($islogin == true) {
-            echo '<div style="color:green;">Вы авторизованы!<br/><a href="/">Переход на главную</a></div><hr>';
-        } else {
-            echo '<div style="color:red;">Неверный логин или пароль!<br/></div><hr>';
-        }
-    }
-
-?>
-
-<form action="login.php" method="POST">
-    <p>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<form id="logForm" method="post" >
     <p><strong>Логин</strong></p>
-    <input type="text" name="login" value="<?php echo@$data['login']; ?>">
+    <input type="text" name="login" id="logForm">
     </p>
 
-    <p>
     <p><strong>Пароль</strong></p>
-    <input type="password" name="password" value="<?php echo@$data['password']; ?>">
+    <input type="password" name="password" id="password">
     </p>
     </p>
 
     <p>
-        <button type="submit" name="do_login">Войти</button>
+        <button class="logSend">Войти</button>
     </p>
 </form>
+<div id="ack"></div>
+<script type="text/javascript" src="script.js"></script>
+<noscript>
+    <div class="noscriptmsg">
+        Javascript выключен!
+    </div>
+</noscript>

@@ -1,5 +1,4 @@
 <?php
-$data=$_POST;
 class Db{
     private $jsonArray;
 
