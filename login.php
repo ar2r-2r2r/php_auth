@@ -1,11 +1,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <form id="logForm" method="post" >
     <p><strong>Логин</strong></p>
-    <input type="text" name="login" id="logForm">
+    <input type="text" name="login" id="loginForm">
     </p>
 
     <p><strong>Пароль</strong></p>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="passwordForm">
     </p>
     </p>
 
