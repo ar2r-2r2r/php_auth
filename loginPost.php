@@ -2,8 +2,14 @@
 require_once 'User.php';
 require "connection.php";
 require "Db.php";
+
+$isAjax = false ;
+if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    // сюда попадаем в случае AJAX-запроса
+    $isAjax = true ;
     $login = $_POST['login'];
     $password = $_POST['password'];
+
     if($login =="" || $password==""){
         echo json_encode('Введите логин и пароль!');
         exit();
@@ -24,10 +30,14 @@ require "Db.php";
         }
     }
     if ($islogin == true) {
-           echo json_encode('<div style="color:green;">Вы авторизованы!<br/><a href="/">Переход на главную</a></div><hr>');
+        echo json_encode('<div style="color:green;">Вы авторизованы!<br/><a href="/">Переход на главную</a></div><hr>');
     } else {
         echo json_encode('Неверный логин или парль');
     }
+}else{
+    echo json_encode('Не ajax запрос!');
+}
+
 
 
 
