@@ -2,10 +2,7 @@
 require_once 'User.php';
 require "connection.php";
 require "Db.php";
-//    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-//    {
-//        exit;
-//    }
+
     $login = $_POST['login'];
     $password = $_POST['password'];
     if($login =="" || $password==""){
