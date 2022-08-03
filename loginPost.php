@@ -2,7 +2,6 @@
 require_once 'User.php';
 require "connection.php";
 require "Db.php";
-
     $login = $_POST['login'];
     $password = $_POST['password'];
     if($login =="" || $password==""){

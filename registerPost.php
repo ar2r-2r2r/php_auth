@@ -43,9 +43,9 @@
     }
 
     $db = new Db();
-    $jsonArray = $db->read();
-    if ((count($jsonArray)) > 0) {
-        foreach ($jsonArray as $item) {
+    $jsonArray = $db->read();                               //читаем существующие записи
+    if ((count($jsonArray)) > 0) {                           //если записи сущесвутют
+        foreach ($jsonArray as $item) {                         //для каждой записи
             if ($data['login'] === $item['login']) {          //проверка на повторный логин
                 $errors[] = 'Такой логин уже существует!';
 
@@ -63,8 +63,8 @@
         $db->update($user);                                         //заносим в б.д.
         echo json_encode('<div style="color:green;">Вы успешно зарегестрированы!<a href="/"><button>Переход на главную</button></a>');
     }else{
-        $a=array_shift($errors);
-        echo json_encode($a);
+        $a=array_shift($errors);                //получаем первый элемент из списка ошибок(первую ошибку)
+        echo json_encode($a);                           //отправляем её
     }
 
 
